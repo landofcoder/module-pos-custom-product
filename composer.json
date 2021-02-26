@@ -1,0 +1,25 @@
+{
+    "name": "lof/module-customproduct",
+    "description": "Lof Custom Product",
+    "type": "magento2-module",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "email": "info@landofcoder.com",
+            "name": "landofcoder",
+            "homepage": "https://landofcoder.com"
+        }
+    ],
+    "require": {
+        "landofcoder/module-all" : "1.*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Lof\\CustomProduct\\": ""
+        }
+    }
+}

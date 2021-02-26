@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_CustomProduct
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Magento_Backend::custom_product_elements" title="Lof Custom Products">
+					<resource id="Lof_CustomProduct::custom_products" title="Custom Products" sortOrder="10">
+                        <resource id="Lof_CustomProduct::save" title="Save Product" sortOrder="10" />
+						<resource id="Lof_CustomProduct::view_order" title="View Orders" sortOrder="20" />
+						<resource id="Lof_CustomProduct::delete" title="Delete Custom Product" sortOrder="30" />
+					</resource>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Lof_CustomProduct::config_customproduct" title="Lof Custom Product Settings" />
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

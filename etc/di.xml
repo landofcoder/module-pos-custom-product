@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Lof\CustomProduct\Api\CustomProductSettingManagementInterface" type="Lof\CustomProduct\Model\CustomProductSettingManagement"/>
+    <preference for="Lof\CustomProduct\Api\CustomProductManagementInterface" type="Lof\CustomProduct\Model\CustomProductManagement"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="custom_product_listing_data_soruce" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+	<type name="Lof\CustomProduct\Model\ResourceModel\Order\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">lof_pos_order</argument>
+            <argument name="eventPrefix" xsi:type="string">lof_pos_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">lof_pos_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lof\Pos\Model\ResourceModel\Order</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+<!--        <add id="Lof_Pos::pos" title="POS" module="Lof_CustomProduct" sortOrder="15" resource="Lof_CustomProduct::product"/>-->
+        <add id="Lof_Pos::product_new" title="Custom Products" module="Lof_CustomProduct" sortOrder="20" parent="Lof_Pos::pos" action="lofcustomproduct/product/index" resource="Lof_CustomProduct::custom_products"/>
+    </menu>
+</config>
