@@ -1,62 +1,67 @@
 <?php
 namespace Lof\CustomProduct\Model\ResourceModel\Order\Grid;
- 
+
+use Magento\Framework\Api\ExtensibleDataInterface;
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Api\Search\AggregationInterface;
 use Lof\CustomProduct\Model\ResourceModel\Order\Collection as OrderCollection;
- 
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
+use Magento\Framework\Data\Collection\EntityFactoryInterface;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+use Magento\Store\Model\StoreManagerInterface;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Class Collection
+ * @package Lof\CustomProduct\Model\ResourceModel\Order\Grid
+ */
 class Collection extends OrderCollection implements SearchResultInterface
 {
     /**
      * @var AggregationInterface
      */
     protected $aggregations;
- 
+
+
     /**
-     * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Framework\Event\ManagerInterface $eventManager
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\EntityManager\MetadataPool $metadataPool
-     * @param string $mainTable
-     * @param string $eventPrefix
-     * @param string $eventObject
-     * @param string $resourceModel
+     * Collection constructor.
+     * @param EntityFactoryInterface $entityFactory
+     * @param LoggerInterface $logger
+     * @param FetchStrategyInterface $fetchStrategy
+     * @param ManagerInterface $eventManager
+     * @param StoreManagerInterface $storeManager
+     * @param AdapterInterface|null $connection
+     * @param AbstractDb|null $resource
+     * @param $mainTable
+     * @param $eventPrefix
+     * @param $eventObject
+     * @param $resourceModel
      * @param string $model
-     * @param \Magento\Framework\DB\Adapter\AdapterInterface|string|null $connection
-     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource
-     *
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory,
-        \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        EntityFactoryInterface $entityFactory,
+        LoggerInterface $logger,
+        FetchStrategyInterface $fetchStrategy,
+        ManagerInterface $eventManager,
+        StoreManagerInterface $storeManager,
+        AdapterInterface $connection = null,
+        AbstractDb $resource = null,
         $mainTable,
         $eventPrefix,
         $eventObject,
         $resourceModel,
-        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
-        $connection = null,
-        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
+        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document'
     ) {
-        parent::__construct(
-            $entityFactory,
-            $logger,
-            $fetchStrategy,
-            $eventManager,
-            $connection,
-            $resource
-        );
         $this->_eventPrefix = $eventPrefix;
         $this->_eventObject = $eventObject;
         $this->_init($model, $resourceModel);
         $this->setMainTable($mainTable);
+        parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $storeManager, $connection, $resource);
     }
- 
+
     /**
      * @return AggregationInterface
      */
@@ -64,38 +69,38 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this->aggregations;
     }
- 
+
     /**
      * @param AggregationInterface $aggregations
-     * @return $this
+     * @return void
      */
     public function setAggregations($aggregations)
     {
         $this->aggregations = $aggregations;
     }
- 
+
     /**
      * Get search criteria.
      *
-     * @return \Magento\Framework\Api\SearchCriteriaInterface|null
+     * @return SearchCriteriaInterface|null
      */
     public function getSearchCriteria()
     {
         return null;
     }
- 
+
     /**
      * Set search criteria.
      *
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @param SearchCriteriaInterface $searchCriteria
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setSearchCriteria(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null)
+    public function setSearchCriteria(SearchCriteriaInterface $searchCriteria = null)
     {
         return $this;
     }
- 
+
     /**
      * Get total count.
      *
@@ -105,7 +110,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this->getSize();
     }
- 
+
     /**
      * Set total count.
      *
@@ -117,11 +122,11 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this;
     }
- 
+
     /**
      * Set items list.
      *
-     * @param \Magento\Framework\Api\ExtensibleDataInterface[] $items
+     * @param ExtensibleDataInterface[] $items
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */

@@ -108,10 +108,10 @@
                 <label translate="true">Price</label>
             </settings>
         </column>
-             <actionsColumn name="actions" class="Lof\CustomProduct\Ui\Component\Listing\Column\Actions" sortOrder="200">
+         <actionsColumn name="actions" class="Lof\CustomProduct\Ui\Component\Listing\Column\Actions" sortOrder="200">
             <settings>
                 <indexField>entity_id</indexField>
             </settings>
-        </actionsColumn>
+         </actionsColumn>
     </columns>
 </listing>
