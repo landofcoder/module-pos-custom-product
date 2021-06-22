@@ -1,31 +1,31 @@
 <?php
 namespace Lof\CustomProduct\Model\ResourceModel\Order\Grid;
- 
+
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Api\Search\AggregationInterface;
 use Lof\CustomProduct\Model\ResourceModel\Order\Collection as OrderCollection;
- 
+
 class Collection extends OrderCollection implements SearchResultInterface
 {
     /**
      * @var AggregationInterface
      */
     protected $aggregations;
- 
+
     /**
+     * Collection constructor.
      * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
      * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\EntityManager\MetadataPool $metadataPool
-     * @param string $mainTable
-     * @param string $eventPrefix
-     * @param string $eventObject
-     * @param string $resourceModel
+     * @param $mainTable
+     * @param $eventPrefix
+     * @param $eventObject
+     * @param $resourceModel
+     * @param \Magento\Framework\DB\Adapter\AdapterInterface|null $connection
+     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb|null $resource
      * @param string $model
-     * @param \Magento\Framework\DB\Adapter\AdapterInterface|string|null $connection
-     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -39,24 +39,26 @@ class Collection extends OrderCollection implements SearchResultInterface
         $eventPrefix,
         $eventObject,
         $resourceModel,
-        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
-        $connection = null,
-        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
+        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
+        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null,
+        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document'
     ) {
         parent::__construct(
             $entityFactory,
             $logger,
             $fetchStrategy,
             $eventManager,
+            $storeManager,
             $connection,
             $resource
         );
+
         $this->_eventPrefix = $eventPrefix;
         $this->_eventObject = $eventObject;
         $this->_init($model, $resourceModel);
         $this->setMainTable($mainTable);
     }
- 
+
     /**
      * @return AggregationInterface
      */
@@ -64,7 +66,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this->aggregations;
     }
- 
+
     /**
      * @param AggregationInterface $aggregations
      * @return $this
@@ -73,7 +75,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         $this->aggregations = $aggregations;
     }
- 
+
     /**
      * Get search criteria.
      *
@@ -83,7 +85,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return null;
     }
- 
+
     /**
      * Set search criteria.
      *
@@ -95,7 +97,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this;
     }
- 
+
     /**
      * Get total count.
      *
@@ -105,7 +107,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this->getSize();
     }
- 
+
     /**
      * Set total count.
      *
@@ -117,7 +119,7 @@ class Collection extends OrderCollection implements SearchResultInterface
     {
         return $this;
     }
- 
+
     /**
      * Set items list.
      *
