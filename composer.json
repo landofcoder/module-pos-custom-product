@@ -1,6 +1,6 @@
 {
-    "name": "lof/module-customproduct",
-    "description": "Lof Custom Product",
+    "name": "landofcoder/module-customproduct",
+    "description": "Lof Custom Product for magento 2, add custom product when checkout, support for POS app",
     "type": "magento2-module",
     "license": "MIT",
     "version": "1.0.0",
@@ -12,7 +12,6 @@
         }
     ],
     "require": {
-        "landofcoder/module-all" : "1.*"
     },
     "autoload": {
         "files": [
